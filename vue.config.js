@@ -36,14 +36,6 @@ const resolve = (dir) => {
   return path.join(__dirname, dir)
 }
 
-const mockServer = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return require('./mock/mockServer.js')
-  } else {
-    return ''
-  }
-}
-
 module.exports = {
   publicPath,
   assetsDir,
@@ -53,24 +45,20 @@ module.exports = {
   devServer: {
     hot: true,
     port: devPort,
-    open: true,
+    open: false,
     noInfo: false,
     overlay: {
       warnings: true,
       errors: true,
     },
     // 注释掉的地方是前端配置代理访问后端的示例
-    // proxy: {
-    //   [baseURL]: {
-    //     target: `http://你的后端接口地址`,
-    //     ws: true,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       ["^/" + baseURL]: "",
-    //     },
-    //   },
-    // },
-    after: mockServer(),
+    proxy: {
+      api: {
+        target: `http://laravel8.blog.com`,
+        ws: true,
+        changeOrigin: true,
+      },
+    },
   },
   configureWebpack() {
     return {

@@ -5,10 +5,10 @@
       <a-col :xs="24" :sm="24" :md="12" :lg="10" :xl="6">
         <div class="login-container-form">
           <div class="login-container-hello">hello!</div>
-          <div class="login-container-title">欢迎来到 {{ title }}</div>
+          <div class="login-container-title">歡迎來到 {{ title }}</div>
           <a-form :model="form" @submit="handleSubmit" @submit.prevent>
             <a-form-item>
-              <a-input v-model:value="form.username" placeholder="Username">
+              <a-input v-model:value="form.email" placeholder="email">
                 <template v-slot:prefix>
                   <UserOutlined style="color: rgba(0, 0, 0, 0.25)" />
                 </template>
@@ -29,9 +29,9 @@
               <a-button
                 type="primary"
                 html-type="submit"
-                :disabled="form.username === '' || form.password === ''"
+                :disabled="form.email === '' || form.password === ''"
               >
-                登录
+                登錄
               </a-button>
             </a-form-item>
           </a-form>
@@ -39,16 +39,19 @@
       </a-col>
     </a-row>
     <div class="login-container-tips">
-      基于vue{{ dependencies['vue'] }}
+      基於vue{{ dependencies['vue'] }}
       + ant-design-vue
-      {{ dependencies['ant-design-vue'] }}开发
+      {{ dependencies['ant-design-vue'] }}開發
     </div>
   </div>
 </template>
 <script>
   import { dependencies, devDependencies } from '*/package.json'
-  import { mapActions, mapGetters } from 'vuex'
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+
+  import { useStore } from 'vuex'
+  import { useRouter, useRoute } from 'vue-router'
+  import { reactive, computed, watch, ref } from 'vue'
 
   export default {
     name: 'Login',
@@ -56,51 +59,46 @@
       UserOutlined,
       LockOutlined,
     },
-    data() {
-      return {
-        form: {
-          username: '',
-          password: '',
-        },
-        redirect: undefined,
-        dependencies: dependencies,
-        devDependencies: devDependencies,
-      }
-    },
-    computed: {
-      ...mapGetters({
-        logo: 'settings/logo',
-        title: 'settings/title',
-      }),
-    },
-    watch: {
-      $route: {
-        handler(route) {
-          this.redirect = (route.query && route.query.redirect) || '/'
-        },
-        immediate: true,
-      },
-    },
-    mounted() {
-      this.form.username = 'admin'
-      this.form.password = '123456'
-      /*  setTimeout(() => {
-        this.handleSubmit()
-      }, 3000) */
-    },
-    methods: {
-      ...mapActions({
-        login: 'user/login',
-      }),
-      handleRoute() {
-        return this.redirect === '/404' || this.redirect === '/403'
+    setup() {
+      const store = useStore()
+      const router = useRouter()
+      const route = useRoute()
+      let redirect = ref(undefined)
+      const form = reactive({
+        email: 'as55518010@yahoo.com.tw',
+        password: 'as555180',
+      })
+
+      const logo = computed(() => store.getters['settings/logo'])
+      const title = computed(() => store.getters['settings/title'])
+
+      function handleRoute() {
+        return redirect.value === '/404' || redirect.value === '/403'
           ? '/'
-          : this.redirect
-      },
-      async handleSubmit() {
-        await this.login(this.form)
-        await this.$router.push(this.handleRoute())
-      },
+          : redirect.value
+      }
+
+      async function handleSubmit() {
+        await store.dispatch('user/login', form)
+        await router.push(handleRoute())
+      }
+
+      watch(
+        route,
+        (route) => {
+          redirect.value = (route.query && route.query.redirect) || '/'
+        },
+        { immediate: true }
+      )
+
+      return {
+        handleSubmit,
+        form,
+        devDependencies,
+        dependencies,
+        logo,
+        title,
+      }
     },
   }
 </script>

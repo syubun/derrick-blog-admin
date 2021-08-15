@@ -1,8 +1,7 @@
 import { devDependencies } from '../../package.json'
 if (!devDependencies['vab-config']) document.body.innerHTML = ''
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 格式化时间
+ * @description 格式化時間
  * @param time
  * @param cFormat
  * @returns {string|null}
@@ -46,8 +45,7 @@ export function parseTime(time, cFormat) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 格式化时间
+ * @description 格式化時間
  * @param time
  * @param option
  * @returns {string}
@@ -64,12 +62,12 @@ export function formatTime(time, option) {
   const diff = (now - d) / 1000
 
   if (diff < 30) {
-    return '刚刚'
+    return '剛剛'
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前'
+    return Math.ceil(diff / 60) + '分鐘前'
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前'
+    return Math.ceil(diff / 3600) + '小時前'
   } else if (diff < 3600 * 24 * 2) {
     return '1天前'
   }
@@ -83,7 +81,7 @@ export function formatTime(time, option) {
       d.getDate() +
       '日' +
       d.getHours() +
-      '时' +
+      '時' +
       d.getMinutes() +
       '分'
     )
@@ -91,8 +89,7 @@ export function formatTime(time, option) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 将url请求参数转为json格式
+ * @description 將url請求參數轉為json格式
  * @param url
  * @returns {{}|any}
  */
@@ -113,8 +110,7 @@ export function paramObj(url) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 父子关系的数组转换成树形结构数据
+ * @description 父子關係的數組轉換成樹形結構數據
  * @param data
  * @returns {*}
  */
@@ -144,8 +140,7 @@ export function translateDataToTree(data) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 树形结构数据转换成父子关系的数组
+ * @description 樹形結構數據轉換成父子關係的數組
  * @param data
  * @returns {[]}
  */
@@ -171,8 +166,7 @@ export function translateTreeToData(data) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 10位时间戳转换
+ * @description 10位時間戳轉換
  * @param time
  * @returns {string}
  */
@@ -189,12 +183,11 @@ export function tenBitTimestamp(time) {
   let second = date.getSeconds()
   minute = minute < 10 ? '0' + minute : minute
   second = second < 10 ? '0' + second : second
-  return y + '年' + m + '月' + d + '日 ' + h + ':' + minute + ':' + second //组合
+  return y + '年' + m + '月' + d + '日 ' + h + ':' + minute + ':' + second //組合
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 13位时间戳转换
+ * @description 13位時間戳轉換
  * @param time
  * @returns {string}
  */
@@ -211,12 +204,11 @@ export function thirteenBitTimestamp(time) {
   let second = date.getSeconds()
   minute = minute < 10 ? '0' + minute : minute
   second = second < 10 ? '0' + second : second
-  return y + '年' + m + '月' + d + '日 ' + h + ':' + minute + ':' + second //组合
+  return y + '年' + m + '月' + d + '日 ' + h + ':' + minute + ':' + second //組合
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 获取随机id
+ * @description 獲取隨機id
  * @param length
  * @returns {string}
  */
@@ -230,8 +222,7 @@ export function uuid(length = 32) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description m到n的随机数
+ * @description m到n的隨機數
  * @param m
  * @param n
  * @returns {number}
@@ -241,7 +232,6 @@ export function random(m, n) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description addEventListener
  * @type {function(...[*]=)}
  */
@@ -254,7 +244,6 @@ export const on = (function () {
 })()
 
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description removeEventListener
  * @type {function(...[*]=)}
  */

@@ -1,6 +1,5 @@
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 路由守卫，目前两种模式：all模式与intelligence模式
+ * @description 路由守衛，目前兩種模式：all模式與intelligence模式
  */
 import router from '@/router'
 import store from '@/store'
@@ -32,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
           if (loginInterception) {
             await store.dispatch('user/getUserInfo')
           } else {
-            //loginInterception为false（关闭登录拦截时）时，创建虚拟角色
+            //loginInterception為false（關閉登錄攔截時）時，創建虛擬角色
             await store.dispatch('user/setVirtualRoles')
           }
 
@@ -45,7 +44,6 @@ router.beforeEach(async (to, from, next) => {
           accessRoutes.forEach((item) => {
             router.addRoute(item)
           })
-
           next({ ...to, replace: true })
         } catch {
           await store.dispatch('user/resetAll')

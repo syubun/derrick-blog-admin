@@ -1,6 +1,6 @@
 /**
  * @author chuzhixin 1204505056@qq.com
- * @description 路由拦截状态管理，目前两种模式：all模式与intelligence模式，其中partialRoutes是菜单暂未使用
+ * @description 路由攔截狀態管理，目前兩種模式：all模式與intelligence模式，其中partialRoutes是菜單暫未使用
  */
 import { asyncRoutes, constantRoutes } from '@/router'
 import { getRouterList } from '@/api/router'
@@ -24,8 +24,7 @@ const mutations = {
 }
 const actions = {
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description intelligence模式设置路由
+   * @description intelligence模式設置路由
    * @param {*} { commit }
    * @returns
    */
@@ -35,8 +34,7 @@ const actions = {
     return [...asyncRoutes]
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description all模式设置路由
+   * @description all模式設置路由
    * @param {*} { commit }
    * @returns
    */
@@ -50,10 +48,9 @@ const actions = {
     return [...asyncRoutes]
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 画廊布局、综合布局设置路由
+   * @description 畫廊布局、綜合布局設置路由
    * @param {*} { commit }
-   * @param accessedRoutes 画廊布局、综合布局设置路由
+   * @param accessedRoutes 畫廊布局、綜合布局設置路由
    */
   setPartialRoutes({ commit }, accessedRoutes) {
     commit('setPartialRoutes', accessedRoutes)

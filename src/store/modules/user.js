@@ -1,6 +1,5 @@
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 登录、获取用户信息、退出登录、清除accessToken逻辑，不建议修改
+ * @description 登錄、獲取用戶信息、退出登錄、清除accessToken邏輯，不建議修改
  */
 import { getUserInfo, login, logout } from '@/api/user'
 import {
@@ -23,8 +22,7 @@ const getters = {
 }
 const mutations = {
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 设置accessToken
+   * @description 設置accessToken
    * @param {*} state
    * @param {*} accessToken
    */
@@ -33,8 +31,7 @@ const mutations = {
     setAccessToken(accessToken)
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 设置用户名
+   * @description 設置用戶名
    * @param {*} state
    * @param {*} username
    */
@@ -42,8 +39,7 @@ const mutations = {
     state.username = username
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 设置头像
+   * @description 設置頭像
    * @param {*} state
    * @param {*} avatar
    */
@@ -53,24 +49,22 @@ const mutations = {
 }
 const actions = {
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 登录拦截放行时，设置虚拟角色
+   * @description 登錄攔截放行時，設置虛擬角色
    * @param {*} { commit, dispatch }
    */
   setVirtualRoles({ commit, dispatch }) {
     dispatch('acl/setFull', true, { root: true })
     commit('setAvatar', 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
-    commit('setUsername', 'admin(未开启登录拦截)')
+    commit('setUsername', 'admin(未開啟登錄攔截)')
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 登录
+   * @description 登錄
    * @param {*} { commit }
    * @param {*} userInfo
    */
   async login({ commit }, userInfo) {
-    const { data } = await login(userInfo)
-    const accessToken = data[tokenName]
+    const { result } = await login(userInfo)
+    const accessToken = result[tokenName]
     if (accessToken) {
       commit('setAccessToken', accessToken)
       const hour = new Date().getHours()
@@ -85,40 +79,39 @@ const actions = {
           ? '下午好'
           : '晚上好'
       notification.open({
-        message: `欢迎登录${title}`,
+        message: `歡迎登錄${title}`,
         description: `${thisTime}！`,
       })
     } else {
-      message.error(`登录接口异常，未正确返回${tokenName}...`)
+      message.error(`登錄接口異常，未正確返回${tokenName}...`)
     }
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 获取用户信息接口 这个接口非常非常重要，如果没有明确底层前逻辑禁止修改此方法，错误的修改可能造成整个框架无法正常使用
+   * @description 獲取用戶信息接口 這個接口非常非常重要，如果沒有明確底層前邏輯禁止修改此方法，錯誤的修改可能造成整個框架無法正常使用
    * @param {*} { commit, dispatch, state }
    * @returns
    */
-  async getUserInfo({ commit, dispatch, state }) {
-    const { data } = await getUserInfo(state.accessToken)
-    if (!data) {
-      message.error(`验证失败，请重新登录...`)
+  // eslint-disable-next-line no-unused-vars
+  async getUserInfo({ commit, dispatch }) {
+    const { result } = await getUserInfo()
+    if (!result) {
+      message.error(`驗證失敗，請重新登錄...`)
       return false
     }
-    let { username, avatar, roles, ability } = data
-    if (username && roles && Array.isArray(roles)) {
+    let { name, avatar, roles, ability } = result
+    if (name && roles && Array.isArray(roles)) {
       dispatch('acl/setRole', roles, { root: true })
       if (ability && ability.length > 0)
         dispatch('acl/setAbility', ability, { root: true })
-      commit('setUsername', username)
+      commit('setUsername', name)
       commit('setAvatar', avatar)
     } else {
-      message.error('用户信息接口异常')
+      message.error('用戶信息接口異常')
     }
   },
 
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 退出登录
+   * @description 退出登錄
    * @param {*} { dispatch }
    */
   async logout({ dispatch }) {
@@ -126,7 +119,6 @@ const actions = {
     await dispatch('resetAll')
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 重置accessToken、roles、ability、router等
    * @param {*} { commit, dispatch }
    */
@@ -138,8 +130,7 @@ const actions = {
     removeAccessToken()
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 设置token
+   * @description 設置token
    */
   setAccessToken({ commit }, accessToken) {
     commit('setAccessToken', accessToken)
