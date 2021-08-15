@@ -91,7 +91,6 @@ const actions = {
    * @param {*} { commit, dispatch, state }
    * @returns
    */
-  // eslint-disable-next-line no-unused-vars
   async getUserInfo({ commit, dispatch }) {
     const { result } = await getUserInfo()
     if (!result) {
