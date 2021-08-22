@@ -97,13 +97,13 @@ const actions = {
       message.error(`驗證失敗，請重新登錄...`)
       return false
     }
-    let { name, avatar, roles, ability } = result
+    let { name, detail, roles, ability } = result
     if (name && roles && Array.isArray(roles)) {
       dispatch('acl/setRole', roles, { root: true })
       if (ability && ability.length > 0)
         dispatch('acl/setAbility', ability, { root: true })
       commit('setUsername', name)
-      commit('setAvatar', avatar)
+      commit('setAvatar', detail.avatar)
     } else {
       message.error('用戶信息接口異常')
     }

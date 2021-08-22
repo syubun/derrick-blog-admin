@@ -9,6 +9,13 @@ const network = {
   //最長請求時間
   requestTimeout: 500000,
   //操作正常code，支持String、Array、int多種類型
-  successCode: [200, 0],
+  successCode: [
+    200, // OK
+    201, // Created
+    202, // Non-Authoritative Information
+    203, // No Content
+    204, // Reset Content
+    205, // Partial Content
+  ],
 }
 module.exports = network

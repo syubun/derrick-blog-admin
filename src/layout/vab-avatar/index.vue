@@ -2,13 +2,12 @@
   <div class="vab-avatar">
     <a-dropdown>
       <span class="ant-dropdown-link">
-        <a-avatar :src="avatar" />
+        <a-avatar :src="avatar.url" />
         {{ username }}
         <DownOutlined />
       </span>
       <template v-slot:overlay>
         <a-menu>
-          <a-menu-item @click="buy">付费版购买</a-menu-item>
           <a-menu-item @click="logout">退出登录</a-menu-item>
         </a-menu>
       </template>
@@ -32,6 +31,9 @@
       const router = useRouter()
       const route = useRoute()
 
+      const avatar = computed(() => store.getters['user/avatar'])
+      const username = computed(() => store.getters['user/username'])
+
       const logout = async () => {
         await store.dispatch('user/logout')
         if (recordRoute) {
@@ -41,16 +43,10 @@
           router.push('/login')
         }
       }
-
-      const buy = () => {
-        window.open('http://vue-admin-beautiful.com/authorization/')
-      }
-
       return {
-        avatar: computed(() => store.getters['user/avatar']),
-        username: computed(() => store.getters['user/username']),
+        avatar,
+        username,
         logout,
-        buy,
       }
     },
   }

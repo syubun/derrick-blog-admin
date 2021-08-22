@@ -254,3 +254,60 @@ export const off = (function () {
     }
   }
 })()
+
+/**
+ * 樹中找尋
+ * @param {Object} element
+ * @param {String} matchingKey
+ * @param {String} matchingVal
+ * @returns
+ */
+export function searchTree(element, matchingKey, matchingVal) {
+  if (element[matchingKey] == matchingVal) {
+    return element
+  } else if (element.children != null) {
+    var i
+    var result = null
+    for (i = 0; result == null && i < element.children.length; i++) {
+      result = searchTree(element.children[i], matchingKey, matchingVal)
+    }
+    return result
+  }
+  return null
+}
+/**
+ * 樹中找尋
+ * @param {Array} data
+ * @param {String} matchingKey
+ * @param {String} matchingVal
+ * @returns
+ */
+export async function searchTreeArray(data, matchingKey, matchingVal) {
+  for (let element of data) {
+    if (searchTree(element, matchingKey, matchingVal))
+      return searchTree(element, matchingKey, matchingVal)
+  }
+}
+// 树结构 查找所有叶子节点
+export function getChild(data, matchingKey, id, arr) {
+  for (let el of data) {
+    if (el[matchingKey] === id) {
+      arr.push(el.id)
+      if (el.children) {
+        childNodesDeep(el.children, arr)
+      }
+    } else if (el.children) {
+      getChild(el.children, matchingKey, id, arr)
+    }
+  }
+  return arr
+}
+export function childNodesDeep(data, arr) {
+  if (data)
+    data.forEach((ele) => {
+      arr.push(ele.id)
+      if (ele.children) {
+        childNodesDeep(ele.children, arr)
+      }
+    })
+}
