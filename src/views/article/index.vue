@@ -12,7 +12,12 @@
     :data-source="dataSource"
     :columns="columns"
     rowKey="id"
-    :pagination="false"
+    :pagination="{
+      total,
+      current: query.pagination.page,
+      pageSize: query.pagination.size,
+    }"
+    @change="paginationChange"
   >
     <template #created_at="{ text }">
       {{ text ? parseTime(text, '{y}-{m}-{d} {h}:{i}') : '' }}
@@ -54,7 +59,7 @@
       </a-popconfirm>
     </template>
   </a-table>
-
+  <!-- 
   <a-modal v-model:visible="addVisible" title="新增文章分類" :footer="null">
     <add />
   </a-modal>
@@ -65,7 +70,7 @@
     :footer="null"
   >
     <edit />
-  </a-modal>
+  </a-modal> -->
 </template>
 <script>
   import {
@@ -76,6 +81,7 @@
     provide,
     toRaw,
     unref,
+    onMounted,
   } from 'vue'
   import {
     CheckOutlined,
@@ -86,11 +92,7 @@
   import { cloneDeep } from 'lodash-es'
   import { message } from 'ant-design-vue'
 
-  import {
-    getCategorie,
-    patchCategorie,
-    deleteCategorie,
-  } from '@/api/categories.js'
+  import { getArticle } from '@/api/article.js'
   import { parseTime, searchTreeArray, getChild } from '@/utils//index.js'
   import add from './components/add.vue'
   import edit from './components/edit.vue'
@@ -102,17 +104,17 @@
       EditOutlined,
       DeleteFilled,
       EditFilled,
-      add,
-      edit,
+      // add,
+      // edit,
     },
     setup() {
-      console.log('gpopd')
+      console.log('eee')
       const columns = [
         {
-          title: '分類名',
-          dataIndex: 'name',
+          title: '文章主題',
+          dataIndex: 'title',
           slots: {
-            customRender: 'name',
+            customRender: 'title',
           },
         },
         {
@@ -137,7 +139,22 @@
           },
         },
       ]
+      // 數據
       const dataSource = ref([])
+      // 總文章數
+      const total = ref(0)
+      // 查詢
+      const query = reactive({
+        // 分頁
+        pagination: {
+          // 每頁數量
+          size: 1,
+          // 頁數
+          page: 1,
+        },
+        // 篩選條件
+        where: {},
+      })
 
       const count = computed(() => dataSource.value.length + 1)
       const editableData = reactive({})
@@ -147,10 +164,22 @@
 
       // 獲取數據
       const getListApi = async () => {
-        const { result } = await getCategorie()
-        dataSource.value = result
+        const { list, pagination } = await getArticle(query)
+        dataSource.value = list
+        total.value = pagination.total
+        query.pagination.size = pagination.size
+        query.pagination.page = pagination.page
       }
-      getListApi()
+
+      onMounted(() => {
+        getListApi()
+      })
+      // 切換分頁
+      const paginationChange = (pagination) => {
+        query.pagination.page = pagination.current
+        query.pagination.size = pagination.pageSize
+        getListApi()
+      }
 
       const edit = async (key) => {
         editableData[key] = cloneDeep(
@@ -207,6 +236,9 @@
         addVisible,
         editVisible,
         handleEdit,
+        total,
+        query,
+        paginationChange,
       }
     },
   })

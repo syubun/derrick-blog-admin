@@ -44,9 +44,9 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/categories',
+    path: '/articleManagement',
     component: Layout,
-    redirect: '/categories/index',
+    redirect: '/articleManagement/categories',
     alwaysShow: true,
     meta: {
       title: '文章管理',
@@ -54,14 +54,23 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'index',
-        name: 'categoriesIndex',
+        path: 'categories',
+        name: 'categoriesList',
         component: () => import('@/views/categories/index'),
         meta: {
           title: '類別區塊',
           icon: 'table-2',
         },
       },
+      // {
+      //   path: 'article',
+      //   name: 'articleList',
+      //   component: () => import('@/views/article/index'),
+      //   meta: {
+      //     title: '文章',
+      //     icon: 'table-2',
+      //   },
+      // },
     ],
   },
   {
