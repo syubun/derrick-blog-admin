@@ -1,6 +1,5 @@
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description tagsBar多标签页逻辑，前期借鉴了很多开源项目发现都有个共同的特点很繁琐并不符合框架设计的初衷，后来在github用户cyea的启发下完成了重构，请勿修改
+ * @description tagsBar多標籤頁邏輯，前期借鑒了很多開源項目發現都有個共同的特點很繁瑣並不符合框架設計的初衷，後來在github用戶cyea的啟發下完成了重構，請勿修改
  */
 
 const state = () => ({
@@ -11,8 +10,7 @@ const getters = {
 }
 const mutations = {
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 添加标签页
+   * @description 添加標籤頁
    * @param {*} state
    * @param {*} route
    * @returns
@@ -26,8 +24,7 @@ const mutations = {
     state.visitedRoutes.push(Object.assign({}, route))
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页
+   * @description 刪除當前標籤頁
    * @param {*} state
    * @param {*} route
    * @returns
@@ -38,8 +35,7 @@ const mutations = {
     })
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页以外其它全部多标签页
+   * @description 刪除當前標籤頁以外其它全部多標籤頁
    * @param {*} state
    * @param {*} route
    * @returns
@@ -50,8 +46,7 @@ const mutations = {
     )
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页左边全部多标签页
+   * @description 刪除當前標籤頁左邊全部多標籤頁
    * @param {*} state
    * @param {*} route
    * @returns
@@ -64,8 +59,7 @@ const mutations = {
     })
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页右边全部多标签页
+   * @description 刪除當前標籤頁右邊全部多標籤頁
    * @param {*} state
    * @param {*} route
    * @returns
@@ -78,8 +72,7 @@ const mutations = {
     })
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除全部多标签页
+   * @description 刪除全部多標籤頁
    * @param {*} state
    * @param {*} route
    * @returns
@@ -90,8 +83,7 @@ const mutations = {
 }
 const actions = {
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 添加标签页
+   * @description 添加標籤頁
    * @param {*} { commit }
    * @param {*} route
    */
@@ -99,8 +91,7 @@ const actions = {
     commit('addVisitedRoute', route)
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页
+   * @description 刪除當前標籤頁
    * @param {*} { commit }
    * @param {*} route
    */
@@ -108,8 +99,7 @@ const actions = {
     commit('delVisitedRoute', route)
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页以外其它全部多标签页
+   * @description 刪除當前標籤頁以外其它全部多標籤頁
    * @param {*} { commit }
    * @param {*} route
    */
@@ -117,8 +107,7 @@ const actions = {
     commit('delOthersVisitedRoutes', route)
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页左边全部多标签页
+   * @description 刪除當前標籤頁左邊全部多標籤頁
    * @param {*} { commit }
    * @param {*} route
    */
@@ -126,8 +115,7 @@ const actions = {
     commit('delLeftVisitedRoutes', route)
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除当前标签页右边全部多标签页
+   * @description 刪除當前標籤頁右邊全部多標籤頁
    * @param {*} { commit }
    * @param {*} route
    */
@@ -135,8 +123,7 @@ const actions = {
     commit('delRightVisitedRoutes', route)
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
-   * @description 删除全部多标签页
+   * @description 刪除全部多標籤頁
    * @param {*} { commit }
    */
   delAllVisitedRoutes({ commit }) {

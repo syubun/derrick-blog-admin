@@ -2,8 +2,7 @@ import { storage, tokenTableName } from '@/config'
 import cookie from 'js-cookie'
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 获取accessToken
+ * @description 獲取accessToken
  * @returns {string|ActiveX.IXMLDOMNode|Promise<any>|any|IDBRequest<any>|MediaKeyStatus|FormDataEntryValue|Function|Promise<Credential | null>}
  */
 export function getAccessToken() {
@@ -23,8 +22,7 @@ export function getAccessToken() {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
- * @description 存储accessToken
+ * @description 存儲accessToken
  * @param accessToken
  * @returns {void|*}
  */
@@ -45,7 +43,6 @@ export function setAccessToken(accessToken) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description 移除accessToken
  * @returns {void|Promise<void>}
  */

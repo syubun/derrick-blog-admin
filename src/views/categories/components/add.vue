@@ -24,7 +24,7 @@
   </a-form>
 </template>
 <script>
-  import { defineComponent, reactive, toRaw, unref, inject } from 'vue'
+  import { defineComponent, reactive, toRaw, unref, inject, ref } from 'vue'
   import { Form, message } from 'ant-design-vue'
 
   import { createCategorie } from '@/api/categories.js'
@@ -32,13 +32,13 @@
 
   export default defineComponent({
     setup() {
-      const treeData = [
+      const treeData = ref([
         {
           id: 0,
           name: '頂級目錄',
-          children: toRaw(unref(inject('dataSource'))),
+          children: inject('dataSource').value,
         },
-      ]
+      ])
       console.log(treeData)
       const replaceFields = {
         title: 'name',
@@ -80,6 +80,7 @@
             mybus.emit('categoriesAdd')
           })
           .catch((err) => {
+            message.success('新增類別失敗')
             console.log('error', err)
           })
       }

@@ -24,7 +24,7 @@
   </a-form>
 </template>
 <script>
-  import { defineComponent, reactive, toRaw, unref, inject, ref } from 'vue'
+  import { defineComponent, reactive, toRaw, unref, ref } from 'vue'
   import { Form, message } from 'ant-design-vue'
 
   import { putCategorie } from '@/api/categories.js'
@@ -89,7 +89,6 @@
             children: toRaw(unref(dataSource)),
           },
         ]
-        console.log(modelRef)
       })
       return {
         labelCol: {

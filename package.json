@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
+    "@tinymce/tinymce-vue": "^4.0.4",
     "ant-design-vue": "2.2.2",
     "axios": "^0.21.1",
     "clipboard": "^2.0.8",
@@ -24,6 +25,8 @@
     "mitt": "^3.0.0",
     "mockjs": "^1.1.0",
     "remixicon": "^2.5.0",
+    "stackedit-js": "^1.0.7",
+    "vditor": "^3.8.6",
     "vue": "^3.1.4",
     "vue-router": "^4.0.10",
     "vuex": "^4.0.2"

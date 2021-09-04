@@ -12,6 +12,8 @@ import router from '@/router'
 import { isArray } from '@/utils/validate'
 import { message } from 'ant-design-vue'
 
+import { jsonToHump, jsonToUnderline } from '@/utils/hump'
+
 let loadingInstance
 
 /**
@@ -53,6 +55,7 @@ const instance = axios.create({
  */
 instance.interceptors.request.use(
   (config) => {
+    config.data = jsonToUnderline(config.data)
     if (store.getters['user/accessToken'])
       config.headers.Authorization = `Bearer ${store.getters['user/accessToken']}`
     if (
@@ -86,7 +89,7 @@ instance.interceptors.response.use(
       : [...[successCode]]
     // 是否操作正常
     if (codeVerificationArray.includes(status)) {
-      return data
+      return jsonToHump(data)
     } else {
       handleCode(status, message)
       return Promise.reject(

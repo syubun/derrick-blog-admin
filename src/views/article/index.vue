@@ -1,80 +1,60 @@
 <template>
-  <a-button
-    type="primary"
-    class="editable-add-btn"
-    @click="handleAdd"
-    style="margin-bottom: 8px"
-  >
-    新增
-  </a-button>
-  <a-table
-    bordered
-    :data-source="dataSource"
-    :columns="columns"
-    rowKey="id"
-    :pagination="{
-      total,
-      current: query.pagination.page,
-      pageSize: query.pagination.size,
-    }"
-    @change="paginationChange"
-  >
-    <template #created_at="{ text }">
-      {{ text ? parseTime(text, '{y}-{m}-{d} {h}:{i}') : '' }}
-    </template>
-    <template #updated_at="{ text }">
-      {{ text ? parseTime(text, '{y}-{m}-{d} {h}:{i}') : '' }}
-    </template>
-    <template #name="{ text, record }">
-      <div class="editable-cell">
-        <div v-if="editableData[record.id]" class="editable-cell-input-wrapper">
-          <a-input
-            v-focus
-            v-model:value="editableData[record.id].name"
-            @pressEnter="save(record.id)"
-          />
-          <check-outlined
-            class="editable-cell-icon-check"
-            @click="save(record.id)"
-          />
-        </div>
-        <div v-else class="editable-cell-text-wrapper">
-          {{ text || '' }}
-          <edit-outlined class="editable-cell-icon" @click="edit(record.id)" />
-        </div>
-      </div>
-    </template>
-    <template #operation="{ record }">
-      <a-button type="primary" shape="circle" @click="handleEdit(record)">
-        <EditFilled />
-      </a-button>
-      <a-popconfirm
-        v-if="dataSource.length"
-        title="確定要刪除?"
-        @confirm="onDelete(record.id)"
+  <div>
+    <router-link :to="{ name: 'articleAdd' }">
+      <a-button
+        type="primary"
+        class="editable-add-btn"
+        style="margin-bottom: 8px"
       >
-        <a-button type="primary" shape="circle" danger>
-          <DeleteFilled />
+        新增
+      </a-button>
+    </router-link>
+    <a-table
+      bordered
+      :data-source="dataSource"
+      :columns="columns"
+      rowKey="id"
+      :pagination="{
+        total,
+        current: query.pagination.page,
+        pageSize: query.pagination.size,
+      }"
+      @change="paginationChange"
+    >
+      <template #thumb="{ text }">
+        <a-image :width="100" :src="text" />
+      </template>
+      <template #tag="{ text }">
+        <a-tag color="cyan" v-for="(n, k) in text" :key="k">{{ n }}</a-tag>
+      </template>
+      <template #operation="{ record }">
+        <a-button type="primary" shape="circle" @click="handleEdit(record)">
+          <EditFilled />
         </a-button>
-      </a-popconfirm>
-    </template>
-  </a-table>
-  <!-- 
-  <a-modal v-model:visible="addVisible" title="新增文章分類" :footer="null">
-    <add />
-  </a-modal>
-  <a-modal
-    v-model:visible="editVisible"
-    :forceRender="true"
-    title="編輯文章分類"
-    :footer="null"
-  >
-    <edit />
-  </a-modal> -->
+        <a-popconfirm
+          v-if="dataSource.length"
+          title="確定要刪除?"
+          @confirm="onDelete(record.id)"
+        >
+          <a-button type="primary" shape="circle" danger>
+            <DeleteFilled />
+          </a-button>
+        </a-popconfirm>
+      </template>
+    </a-table>
+    <a-modal
+      v-model:visible="editVisible"
+      :forceRender="true"
+      title="編輯文章分類"
+      :footer="null"
+      width="80%"
+    >
+      <edit />
+    </a-modal>
+  </div>
 </template>
 <script>
   import {
-    computed,
     defineComponent,
     reactive,
     ref,
@@ -83,52 +63,56 @@
     unref,
     onMounted,
   } from 'vue'
-  import {
-    CheckOutlined,
-    EditOutlined,
-    DeleteFilled,
-    EditFilled,
-  } from '@ant-design/icons-vue'
-  import { cloneDeep } from 'lodash-es'
-  import { message } from 'ant-design-vue'
+  import { DeleteFilled, EditFilled } from '@ant-design/icons-vue'
 
-  import { getArticle } from '@/api/article.js'
-  import { parseTime, searchTreeArray, getChild } from '@/utils//index.js'
-  import add from './components/add.vue'
+  import { getArticle, deleteArticle } from '@/api/article.js'
+  import { getCategorie } from '@/api/categories.js'
+
   import edit from './components/edit.vue'
+
+  import { parseTime } from '@/utils//index.js'
   import mybus from '@/utils/mybus.js'
 
   export default defineComponent({
+    name: 'Article',
     components: {
-      CheckOutlined,
-      EditOutlined,
       DeleteFilled,
       EditFilled,
-      // add,
-      // edit,
+      edit,
     },
     setup() {
-      console.log('eee')
       const columns = [
         {
-          title: '文章主題',
-          dataIndex: 'title',
+          title: '文章縮略圖',
+          dataIndex: 'thumb',
           slots: {
-            customRender: 'title',
+            customRender: 'thumb',
           },
         },
         {
-          title: '創建日期',
-          dataIndex: 'updated_at',
+          title: '文章標題',
+          dataIndex: 'title',
+        },
+        {
+          title: '文章作者',
+          dataIndex: 'author',
+        },
+        {
+          title: '文章標籤',
+          dataIndex: 'articleDetil.tag',
           slots: {
-            customRender: 'updated_at',
+            customRender: 'tag',
           },
+        },
+        {
+          title: '文章瀏覽次數',
+          dataIndex: 'articleDetil.view',
         },
         {
           title: '更新日期',
-          dataIndex: 'created_at',
-          slots: {
-            customRender: 'created_at',
+          dataIndex: 'createdAt',
+          customRender: ({ text }) => {
+            return parseTime(text, '{y}-{m}-{d} {h}:{i}')
           },
         },
         {
@@ -141,6 +125,8 @@
       ]
       // 數據
       const dataSource = ref([])
+      // 類別區塊數據
+      const categoriesData = ref([])
       // 總文章數
       const total = ref(0)
       // 查詢
@@ -148,7 +134,7 @@
         // 分頁
         pagination: {
           // 每頁數量
-          size: 1,
+          size: 10,
           // 頁數
           page: 1,
         },
@@ -156,11 +142,14 @@
         where: {},
       })
 
-      const count = computed(() => dataSource.value.length + 1)
       const editableData = reactive({})
-      const addVisible = ref(false)
       const editVisible = ref(false)
-      provide('dataSource', dataSource)
+      provide('categoriesData', categoriesData)
+
+      onMounted(() => {
+        getListApi()
+        getCategorieApi()
+      })
 
       // 獲取數據
       const getListApi = async () => {
@@ -170,10 +159,12 @@
         query.pagination.size = pagination.size
         query.pagination.page = pagination.page
       }
+      // 獲取數據
+      const getCategorieApi = async () => {
+        const { result } = await getCategorie()
+        categoriesData.value = result
+      }
 
-      onMounted(() => {
-        getListApi()
-      })
       // 切換分頁
       const paginationChange = (pagination) => {
         query.pagination.page = pagination.current
@@ -181,59 +172,28 @@
         getListApi()
       }
 
-      const edit = async (key) => {
-        editableData[key] = cloneDeep(
-          await searchTreeArray(dataSource.value, 'id', key)
-        )
-      }
-
-      const save = async (key) => {
-        await patchCategorie(key, editableData[key])
-        let data = await searchTreeArray(dataSource.value, 'id', key)
-        data.name = editableData[key].name
-        message.success('修改成功')
-        delete editableData[key]
-      }
-
       const onDelete = async (key) => {
-        for (const iterator of getChild(dataSource.value, 'id', key, [])) {
-          await deleteCategorie(iterator)
-        }
+        await deleteArticle(key)
         getListApi()
       }
 
-      const handleAdd = () => {
-        addVisible.value = true
-      }
       const handleEdit = (val) => {
-        mybus.emit('categoriesEditDate', {
+        mybus.emit('articleEditDate', {
           val: toRaw(val),
-          dataSource: toRaw(unref(dataSource)),
         })
         editVisible.value = true
       }
-      // 新增成功事件調用
-      mybus.on('categoriesAdd', () => {
-        addVisible.value = false
-        getListApi()
-      })
       // 修改成功事件調用
       mybus.on('categoriesEdit', () => {
         editVisible.value = false
         getListApi()
       })
-
       return {
         columns,
         onDelete,
-        handleAdd,
         dataSource,
         editableData,
-        count,
-        edit,
-        save,
         parseTime,
-        addVisible,
         editVisible,
         handleEdit,
         total,

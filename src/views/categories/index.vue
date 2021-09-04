@@ -1,71 +1,73 @@
 <template>
-  <a-button
-    type="primary"
-    class="editable-add-btn"
-    @click="handleAdd"
-    style="margin-bottom: 8px"
-  >
-    新增
-  </a-button>
-  <a-table
-    bordered
-    :data-source="dataSource"
-    :columns="columns"
-    rowKey="id"
-    :pagination="false"
-  >
-    <template #created_at="{ text }">
-      {{ text ? parseTime(text, '{y}-{m}-{d} {h}:{i}') : '' }}
-    </template>
-    <template #updated_at="{ text }">
-      {{ text ? parseTime(text, '{y}-{m}-{d} {h}:{i}') : '' }}
-    </template>
-    <template #name="{ text, record }">
-      <div class="editable-cell">
-        <div v-if="editableData[record.id]" class="editable-cell-input-wrapper">
-          <a-input
-            v-focus
-            v-model:value="editableData[record.id].name"
-            @pressEnter="save(record.id)"
-          />
-          <check-outlined
-            class="editable-cell-icon-check"
-            @click="save(record.id)"
-          />
+  <div>
+    <a-button
+      type="primary"
+      class="editable-add-btn"
+      @click="handleAdd"
+      style="margin-bottom: 8px"
+    >
+      新增
+    </a-button>
+    <a-table
+      bordered
+      :data-source="dataSource"
+      :columns="columns"
+      rowKey="id"
+      :pagination="false"
+    >
+      <template #name="{ text, record }">
+        <div class="editable-cell">
+          <div
+            v-if="editableData[record.id]"
+            class="editable-cell-input-wrapper"
+          >
+            <a-input
+              v-focus
+              v-model:value="editableData[record.id].name"
+              @pressEnter="save(record.id)"
+            />
+            <check-outlined
+              class="editable-cell-icon-check"
+              @click="save(record.id)"
+            />
+          </div>
+          <div v-else class="editable-cell-text-wrapper">
+            {{ text || '' }}
+            <edit-outlined
+              class="editable-cell-icon"
+              @click="edit(record.id)"
+            />
+          </div>
         </div>
-        <div v-else class="editable-cell-text-wrapper">
-          {{ text || '' }}
-          <edit-outlined class="editable-cell-icon" @click="edit(record.id)" />
-        </div>
-      </div>
-    </template>
-    <template #operation="{ record }">
-      <a-button type="primary" shape="circle" @click="handleEdit(record)">
-        <EditFilled />
-      </a-button>
-      <a-popconfirm
-        v-if="dataSource.length"
-        title="確定要刪除?"
-        @confirm="onDelete(record.id)"
-      >
-        <a-button type="primary" shape="circle" danger>
-          <DeleteFilled />
+      </template>
+      <template #operation="{ record }">
+        <a-button type="primary" shape="circle" @click="handleEdit(record)">
+          <EditFilled />
         </a-button>
-      </a-popconfirm>
-    </template>
-  </a-table>
+        <a-popconfirm
+          v-if="dataSource.length"
+          title="確定要刪除?"
+          @confirm="onDelete(record.id)"
+        >
+          <a-button type="primary" shape="circle" danger>
+            <DeleteFilled />
+          </a-button>
+        </a-popconfirm>
+      </template>
+    </a-table>
 
-  <a-modal v-model:visible="addVisible" title="新增文章分類" :footer="null">
-    <add />
-  </a-modal>
-  <a-modal
-    v-model:visible="editVisible"
-    :forceRender="true"
-    title="編輯文章分類"
-    :footer="null"
-  >
-    <edit />
-  </a-modal>
+    <a-modal v-model:visible="addVisible" title="新增文章分類" :footer="null">
+      <add />
+    </a-modal>
+    <a-modal
+      v-model:visible="editVisible"
+      :forceRender="true"
+      title="編輯文章分類"
+      :footer="null"
+    >
+      <edit />
+    </a-modal>
+  </div>
 </template>
 <script>
   import {
@@ -97,6 +99,7 @@
   import mybus from '@/utils/mybus.js'
 
   export default defineComponent({
+    name: 'Categories',
     components: {
       CheckOutlined,
       EditOutlined,
@@ -106,7 +109,6 @@
       edit,
     },
     setup() {
-      console.log('gpopd')
       const columns = [
         {
           title: '分類名',
@@ -117,16 +119,16 @@
         },
         {
           title: '創建日期',
-          dataIndex: 'updated_at',
-          slots: {
-            customRender: 'updated_at',
+          dataIndex: 'updatedAt',
+          customRender: ({ text }) => {
+            return parseTime(text, '{y}-{m}-{d} {h}:{i}')
           },
         },
         {
           title: '更新日期',
-          dataIndex: 'created_at',
-          slots: {
-            customRender: 'created_at',
+          dataIndex: 'createdAt',
+          customRender: ({ text }) => {
+            return parseTime(text, '{y}-{m}-{d} {h}:{i}')
           },
         },
         {

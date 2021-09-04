@@ -288,7 +288,7 @@ export async function searchTreeArray(data, matchingKey, matchingVal) {
       return searchTree(element, matchingKey, matchingVal)
   }
 }
-// 树结构 查找所有叶子节点
+// 樹結構 查找所有葉子節點
 export function getChild(data, matchingKey, id, arr) {
   for (let el of data) {
     if (el[matchingKey] === id) {

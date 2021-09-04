@@ -44,6 +44,27 @@ export const asyncRoutes = [
     ],
   },
   {
+    path: '/categoriesManagement',
+    component: Layout,
+    redirect: '/categoriesManagement/categories',
+    alwaysShow: true,
+    meta: {
+      title: '類別管理',
+      icon: 'apps-line',
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'categoriesList',
+        component: () => import('@/views/categories'),
+        meta: {
+          title: '類別區塊',
+          icon: 'table-2',
+        },
+      },
+    ],
+  },
+  {
     path: '/articleManagement',
     component: Layout,
     redirect: '/articleManagement/categories',
@@ -54,23 +75,23 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'categories',
-        name: 'categoriesList',
-        component: () => import('@/views/categories/index'),
+        path: 'index',
+        name: 'articleList',
+        component: () => import('@/views/article'),
         meta: {
-          title: '類別區塊',
+          title: '文章列表',
           icon: 'table-2',
         },
       },
-      // {
-      //   path: 'article',
-      //   name: 'articleList',
-      //   component: () => import('@/views/article/index'),
-      //   meta: {
-      //     title: '文章',
-      //     icon: 'table-2',
-      //   },
-      // },
+      {
+        path: 'add',
+        name: 'articleAdd',
+        component: () => import('@/views/article/components/add'),
+        meta: {
+          title: '新增文章',
+          icon: 'table-2',
+        },
+      },
     ],
   },
   {
