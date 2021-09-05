@@ -87,8 +87,18 @@ export const asyncRoutes = [
         path: 'add',
         name: 'articleAdd',
         component: () => import('@/views/article/components/add'),
+        hidden: true,
         meta: {
           title: '新增文章',
+          icon: 'table-2',
+        },
+      },
+      {
+        path: 'series',
+        name: 'seriesList',
+        component: () => import('@/views/series/'),
+        meta: {
+          title: '文章系列管理',
           icon: 'table-2',
         },
       },

@@ -99,7 +99,7 @@
 
   export default defineComponent({
     setup() {
-      const contentEditor = ref('')
+      const contentEditor = ref()
       const imageUrl = ref('')
       const loading = ref(false)
       const router = useRouter()
@@ -253,7 +253,7 @@
           }
         }
       }
-      // 獲取數據
+      // 獲取 Categorie 數據
       const getCategorieApi = async () => {
         const { result } = await getCategorie()
         treeData.value[0].children = result

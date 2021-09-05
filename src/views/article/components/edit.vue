@@ -305,6 +305,3 @@
     },
   })
 </script>
-<style>
-  @import url(~vditor/dist/index.css);
-</style>

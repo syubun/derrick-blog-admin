@@ -63,18 +63,14 @@
         rulesRef
       )
       const onSubmit = () => {
-        validate()
-          .then(async () => {
-            await putCategorie(unref(id), toRaw(modelRef))
-            message.success('修改類別成功')
-            // 重置
-            resetFields()
-            // 關閉 add model
-            mybus.emit('categoriesEdit')
-          })
-          .catch((err) => {
-            console.log('error', err)
-          })
+        validate().then(async () => {
+          await putCategorie(unref(id), toRaw(modelRef))
+          message.success('修改類別成功')
+          // 重置
+          resetFields()
+          // 關閉 add model
+          mybus.emit('categoriesEdit')
+        })
       }
 
       mybus.on('categoriesEditDate', ({ val, dataSource }) => {

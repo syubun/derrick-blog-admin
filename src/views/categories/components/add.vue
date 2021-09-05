@@ -39,7 +39,6 @@
           children: inject('dataSource').value,
         },
       ])
-      console.log(treeData)
       const replaceFields = {
         title: 'name',
         value: 'id',
@@ -80,8 +79,7 @@
             mybus.emit('categoriesAdd')
           })
           .catch((err) => {
-            message.success('新增類別失敗')
-            console.log('error', err)
+            message.error('新增類別失敗')
           })
       }
 

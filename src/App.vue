@@ -6,17 +6,18 @@
   </div>
 </template>
 <script>
-  import zhCN from 'ant-design-vue/es/locale/zh_CN'
+  import zhTW from 'ant-design-vue/es/locale/zh_TW'
 
   export default {
     name: 'App',
     data() {
       return {
-        locale: zhCN,
+        locale: zhTW,
       }
     },
   }
 </script>
 <style lang="less">
   @import '~@/vab/styles/vab.less';
+  @import '~vditor/dist/index.css';
 </style>
