@@ -18,7 +18,6 @@ const {
   donation,
 } = require('./src/config')
 const { webpackBarName, webpackBanner, donationConsole } = require('vab-config')
-
 if (donation) donationConsole()
 const { version, author } = require('./package.json')
 const Webpack = require('webpack')
@@ -72,6 +71,9 @@ module.exports = {
         new Webpack.ProvidePlugin(providePlugin),
         new WebpackBar({
           name: webpackBarName,
+        }),
+        require('unplugin-element-plus/webpack')({
+          // options
         }),
       ],
     }

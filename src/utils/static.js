@@ -1,6 +1,6 @@
 /**
  * @author chuzhixin 1204505056@qq.com
- * @description 导入所有 controller 模块，浏览器环境中自动输出controller文件夹下Mock接口，请勿修改。
+ * @description 導入所有 controller 模塊，瀏覽器環境中自動輸出controller文件夾下Mock接口，請勿修改。
  */
 import Mock from 'mockjs'
 import { paramObj } from '@/utils/index'

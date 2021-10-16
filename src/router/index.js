@@ -105,6 +105,36 @@ export const asyncRoutes = [
     ],
   },
   {
+    path: '/systemManagement',
+    component: Layout,
+    redirect: '/systemManagement/blog',
+    alwaysShow: true,
+    meta: {
+      title: '系統管理',
+      icon: 'apps-line',
+    },
+    children: [
+      {
+        path: 'blog',
+        name: 'blog',
+        component: () => import('@/views/blog'),
+        meta: {
+          title: 'Blog 相關資訊',
+          icon: 'table-2',
+        },
+      },
+      {
+        path: 'newsfeed',
+        name: 'newsfeed',
+        component: () => import('@/views/newsfeed'),
+        meta: {
+          title: '動態時報表',
+          icon: 'table-2',
+        },
+      },
+    ],
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/404',
     hidden: true,

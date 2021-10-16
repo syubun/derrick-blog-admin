@@ -17,7 +17,6 @@ export async function socialLogin(data) {
 }
 
 export function getUserInfo() {
-  //此處為了兼容mock.js使用data傳遞accessToken，如果使用mock可以走headers
   return request({
     url: '/user/information',
     method: 'get',
@@ -35,5 +34,14 @@ export function register() {
   return request({
     url: '/user/register',
     method: 'post',
+  })
+}
+
+export function patchUser(data) {
+  data.append('_method', 'put')
+  return request({
+    url: '/user',
+    method: 'post',
+    data,
   })
 }

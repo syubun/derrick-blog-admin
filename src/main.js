@@ -7,13 +7,6 @@ import 'ant-design-vue/dist/antd.css'
 import '@/vab'
 import directives from '@/utils/directives'
 
-/**
- * @description 正式环境默认使用mock，正式项目记得注释后再打包
- */
-if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('@/utils/static')
-  mockXHR()
-}
 const app = createApp(App)
 
 app.directive(...directives)

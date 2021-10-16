@@ -8,7 +8,7 @@
       </span>
       <template v-slot:overlay>
         <a-menu>
-          <a-menu-item @click="logout">退出登录</a-menu-item>
+          <a-menu-item @click="logout">退出登錄</a-menu-item>
         </a-menu>
       </template>
     </a-dropdown>

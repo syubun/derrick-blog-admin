@@ -2,15 +2,15 @@ import Clipboard from 'clipboard'
 import { message } from 'ant-design-vue'
 
 function clipboardSuccess(text) {
-  message.success(`复制${text}成功`)
+  message.success(`複製${text}成功`)
 }
 
 function clipboardError(text) {
-  message.error(`复制${text}失败`)
+  message.error(`複製${text}失敗`)
 }
 
 /**
- * @description 复制数据
+ * @description 複製數據
  * @param text
  * @param event
  */

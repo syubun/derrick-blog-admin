@@ -12,7 +12,7 @@ import router from '@/router'
 import { isArray } from '@/utils/validate'
 import { message } from 'ant-design-vue'
 
-import { jsonToHump, jsonToUnderline } from '@/utils/hump'
+import { jsonToHump, jsonToUnderline, hump2Underline } from '@/utils/hump'
 
 let loadingInstance
 
@@ -55,7 +55,16 @@ const instance = axios.create({
  */
 instance.interceptors.request.use(
   (config) => {
-    config.data = jsonToUnderline(config.data)
+    if (config.data instanceof FormData) {
+      const formData = new FormData()
+      for (let pair of config.data.entries()) {
+        formData.append(hump2Underline(pair[0]), pair[1])
+      }
+
+      config.data = formData
+    } else {
+      config.data = jsonToUnderline(config.data)
+    }
     if (store.getters['user/accessToken'])
       config.headers.Authorization = `Bearer ${store.getters['user/accessToken']}`
     if (

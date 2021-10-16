@@ -149,9 +149,9 @@
         validate().then(async () => {
           await createSerie(toRaw(modelRef))
           message.success('新增系列成功')
-          initVditor()
           // 重置
           resetFields()
+          initVditor()
           // 關閉 add model
           mybus.emit('serieAdd')
         })

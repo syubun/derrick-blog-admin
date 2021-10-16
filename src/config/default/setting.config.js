@@ -13,7 +13,7 @@ const setting = {
   //進行編譯的依賴
   transpileDependencies: ['vue-echarts', 'resize-detector'],
   //默認的接口地址 如果是開發環境和生產環境走vab-mock-server，當然你也可以選擇自己配置成需要的接口地址
-  baseURL: '/api',
+  baseURL: 'http://derrick-blog-backend.tk/api',
   //標題 （包括初次加載雪花屏的標題 頁面的標題 瀏覽器的標題）
   title: 'Blog-admin',
   //標題分隔符

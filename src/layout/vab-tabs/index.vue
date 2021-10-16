@@ -21,16 +21,16 @@
         <template v-slot:overlay>
           <a-menu @click="handleClick">
             <a-menu-item key="closeOthersTabs">
-              <a>关闭其他</a>
+              <a>關閉其他</a>
             </a-menu-item>
             <a-menu-item key="closeLeftTabs">
-              <a>关闭左侧</a>
+              <a>關閉左側</a>
             </a-menu-item>
             <a-menu-item key="closeRightTabs">
-              <a>关闭右侧</a>
+              <a>關閉右側</a>
             </a-menu-item>
             <a-menu-item key="closeAllTabs">
-              <a>关闭全部</a>
+              <a>關閉全部</a>
             </a-menu-item>
           </a-menu>
         </template>

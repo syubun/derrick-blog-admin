@@ -48,8 +48,8 @@ const actions = {
     return [...asyncRoutes]
   },
   /**
-   * @description 畫廊布局、綜合布局設置路由
-   * @param {*} { commit }
+   * @descriptio
+   * @param {*} { commit }n 畫廊布局、綜合布局設置路由
    * @param accessedRoutes 畫廊布局、綜合布局設置路由
    */
   setPartialRoutes({ commit }, accessedRoutes) {

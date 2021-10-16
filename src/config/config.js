@@ -1,9 +1,9 @@
 /**
- * @description 导出自定义配置
+ * @description 導出自定義配置
  **/
 const config = {
   layout: 'vertical',
-  donation: true,
+  donation: false,
   templateFolder: 'project',
 }
 module.exports = config

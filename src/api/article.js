@@ -35,3 +35,10 @@ export function createArticle(data) {
     data,
   })
 }
+export function articleCountApi(params = undefined) {
+  return request({
+    url: '/article/count',
+    method: 'get',
+    params,
+  })
+}

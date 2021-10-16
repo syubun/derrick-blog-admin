@@ -13,7 +13,12 @@
       :data-source="dataSource"
       :columns="columns"
       rowKey="id"
-      :pagination="false"
+      :pagination="{
+        total: serieQuery.pagination.total,
+        current: serieQuery.pagination.page,
+        pageSize: serieQuery.pagination.size,
+      }"
+      @change="paginationChange"
     >
       <template #name="{ text, record }">
         <div class="editable-cell">
@@ -172,6 +177,32 @@
           },
         },
       ]
+      // 查詢
+      const articleQuery = reactive({
+        // 分頁
+        pagination: {
+          // 每頁數量
+          size: 10,
+          // 頁數
+          page: 1,
+        },
+        // 篩選條件
+        where: {},
+      })
+      const serieQuerytTotal = ref(0)
+      // 查詢
+      const serieQuery = reactive({
+        // 分頁
+        pagination: {
+          total: 0,
+          // 每頁數量
+          size: 10,
+          // 頁數
+          page: 1,
+        },
+        // 篩選條件
+        where: {},
+      })
       const dataSource = ref([])
       const categoriesTreeData = ref([
         {
@@ -202,28 +233,26 @@
       }
       // 獲取 article 數據
       const getarticlesApi = async () => {
-        // 查詢
-        const query = reactive({
-          // 分頁
-          pagination: {
-            // 每頁數量
-            size: 10,
-            // 頁數
-            page: 1,
-          },
-          // 篩選條件
-          where: {},
-        })
-        const { list, pagination } = await getArticle(query)
+        const { list, pagination } = await getArticle(articleQuery)
         articlesSource.value = list
+        articleQuery.pagination.size = pagination.size
+        articleQuery.pagination.page = pagination.page
       }
 
       // 獲取數據
       const getListApi = async () => {
-        const { result } = await getSerie()
-        dataSource.value = result
+        const { list, pagination } = await getSerie(serieQuery)
+        dataSource.value = list
+        serieQuery.pagination.total = pagination.total
+        serieQuery.pagination.size = pagination.size
+        serieQuery.pagination.page = pagination.page
       }
-      getListApi()
+      // 切換分頁
+      const paginationChange = (pagination) => {
+        serieQuery.pagination.page = pagination.current
+        serieQuery.pagination.size = pagination.pageSize
+        getListApi()
+      }
 
       const edit = async (key) => {
         editableData[key] = cloneDeep(
@@ -232,7 +261,7 @@
       }
 
       const save = async (key) => {
-        await patchSerie(key, editableData[key])
+        await patchSerie(key, { name: editableData[key].name })
         let data = await searchTreeArray(dataSource.value, 'id', key)
         data.name = editableData[key].name
         message.success('修改成功')
@@ -255,7 +284,6 @@
       }
       // 新增成功事件調用
       mybus.on('serieAdd', () => {
-        console.log('das')
         addVisible.value = false
         getListApi()
       })
@@ -279,6 +307,9 @@
         handleEdit,
         isEmpty,
         sortBy,
+        serieQuerytTotal,
+        paginationChange,
+        serieQuery,
       }
     },
   })

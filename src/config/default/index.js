@@ -1,5 +1,5 @@
 /**
- * @description 导出默认配置(通用配置|主题配置|网络配置)
+ * @description 導出默認配置(通用配置|主題配置|網絡配置)
  **/
 const setting = require('./setting.config')
 const theme = require('./theme.config')
