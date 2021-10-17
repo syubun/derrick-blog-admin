@@ -1,5 +1,5 @@
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 路由攔截狀態管理，目前兩種模式：all模式與intelligence模式，其中partialRoutes是菜單暫未使用
  */
 import { asyncRoutes, constantRoutes } from '@/router'

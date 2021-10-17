@@ -1,5 +1,5 @@
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判讀是否為外鏈
  * @param path
  * @returns {boolean}
@@ -9,7 +9,7 @@ export function isExternal(path) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 校驗密碼是否小於6位
  * @param value
  * @returns {boolean}
@@ -19,7 +19,7 @@ export function isPassword(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否為數字
  * @param value
  * @returns {boolean}
@@ -30,7 +30,7 @@ export function isNumber(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是名稱
  * @param value
  * @returns {boolean}
@@ -41,7 +41,7 @@ export function isName(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否為IP
  * @param ip
  * @returns {boolean}
@@ -53,7 +53,7 @@ export function isIP(ip) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是傳統網站
  * @param url
  * @returns {boolean}
@@ -65,7 +65,7 @@ export function isUrl(url) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是小寫字母
  * @param value
  * @returns {boolean}
@@ -76,7 +76,7 @@ export function isLowerCase(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是大寫字母
  * @param value
  * @returns {boolean}
@@ -87,7 +87,7 @@ export function isUpperCase(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是大寫字母開頭
  * @param value
  * @returns {boolean}
@@ -98,7 +98,7 @@ export function isAlphabets(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是字符串
  * @param value
  * @returns {boolean}
@@ -108,7 +108,7 @@ export function isString(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是數組
  * @param arg
  * @returns {arg is any[]|boolean}
@@ -121,7 +121,7 @@ export function isArray(arg) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是端口號
  * @param value
  * @returns {boolean}
@@ -133,7 +133,7 @@ export function isPort(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是手機號
  * @param value
  * @returns {boolean}
@@ -144,7 +144,7 @@ export function isPhone(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是身份證號(第二代)
  * @param value
  * @returns {boolean}
@@ -156,7 +156,7 @@ export function isIdCard(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否是郵箱
  * @param value
  * @returns {boolean}
@@ -167,7 +167,7 @@ export function isEmail(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否中文
  * @param value
  * @returns {boolean}
@@ -178,7 +178,7 @@ export function isChina(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否為空
  * @param value
  * @returns {boolean}
@@ -194,7 +194,7 @@ export function isBlank(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否為固話
  * @param value
  * @returns {boolean}
@@ -206,7 +206,7 @@ export function isTel(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否為數字且最多兩位小數
  * @param value
  * @returns {boolean}
@@ -217,7 +217,7 @@ export function isNum(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷經度 -180.0～+180.0（整數部分為0～180，必須輸入1到5位小數）
  * @param value
  * @returns {boolean}
@@ -228,7 +228,7 @@ export function isLongitude(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷緯度 -90.0～+90.0（整數部分為0～90，必須輸入1到5位小數）
  * @param value
  * @returns {boolean}
@@ -239,7 +239,7 @@ export function isLatitude(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description rtsp校驗，只要有rtsp://
  * @param value
  * @returns {boolean}
@@ -255,7 +255,7 @@ export function isRTSP(value) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description 判斷是否為json
  * @param value
  * @returns {boolean}

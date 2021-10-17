@@ -1,5 +1,5 @@
 /**
- * @author chuzhixin 1204505056@qq.com
+ *
  * @description vue.config.js全局配置
  */
 const path = require('path')
