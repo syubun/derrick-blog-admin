@@ -30,6 +30,9 @@ process.env.VUE_APP_TITLE = title || 'vue-admin-beautiful'
 process.env.VUE_APP_AUTHOR = author || 'chuzhixin'
 process.env.VUE_APP_UPDATE_TIME = time
 process.env.VUE_APP_VERSION = version
+// webpack.config.js
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 const resolve = (dir) => {
   return path.join(__dirname, dir)
@@ -68,12 +71,12 @@ module.exports = {
         },
       },
       plugins: [
+        Components({
+          resolvers: [ElementPlusResolver()],
+        }),
         new Webpack.ProvidePlugin(providePlugin),
         new WebpackBar({
           name: webpackBarName,
-        }),
-        require('unplugin-element-plus/webpack')({
-          // options
         }),
       ],
     }
