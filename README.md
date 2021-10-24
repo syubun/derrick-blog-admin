@@ -1,5 +1,5 @@
 ## 項目介紹
-### 預覽：[https://derrick-blog.tk/derrick-blog-admin/](https://derrick-blog.tk/derrick-blog-admin/)
+### 預覽：[https://derrick.tk/derrick-blog-admin/](https://derrick.tk/derrick-blog-admin/)
 
 ##### 本項目旨在學習Vue3，如果您覺得項目不錯，歡迎star〜
 ### 個人優雅簡約的 Blog 後台項目
