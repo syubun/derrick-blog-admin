@@ -65,8 +65,8 @@
       const route = useRoute()
       let redirect = ref(undefined)
       const form = reactive({
-        email: 'as55518010@yahoo.com.tw',
-        password: 'as555180',
+        email: '',
+        password: '',
       })
 
       const logo = computed(() => store.getters['settings/logo'])
